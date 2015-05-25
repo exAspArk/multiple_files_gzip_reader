@@ -29,22 +29,8 @@ class MultipleFilesGzipReader
 
   alias_method :each_line, :each
 
-  def readlines(*args)
-    result = []
-
-    loop do
-      gzip_reader = Zlib::GzipReader.new(io, options)
-
-      result.concat gzip_reader.readlines(*args)
-
-      unused = gzip_reader.unused
-      gzip_reader.finish
-
-      io.pos -= unused ? unused.length : 0
-      break if io.pos == io.size
-    end
-
-    result
+  def readlines
+    map(&:to_s)
   end
 
 private
