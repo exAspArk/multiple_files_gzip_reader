@@ -1,8 +1,8 @@
 # MultipleFilesGzipReader
 
-GzipReader for reading multiple files.
+It is a library which allows to read a gzip archive with multiple files in it.
 
-TODO
+Currently Ruby standard library called `Zlib::GzipReader` cannot do this: [issue](https://bugs.ruby-lang.org/issues/9790), [issue](https://bugs.ruby-lang.org/issues/11180).
 
 ## Installation
 
@@ -22,7 +22,31 @@ Or install it yourself as:
 
 ## Usage
 
-TODO
+`Zlib::GzipReader`:
+
+```ruby
+> file = File.open("test/fixtures/test.json.gz")
+
+> Zlib::GzipReader.new(file).each_line { |line| puts line }
+# foo
+# => nil
+```
+
+`MultipleFilesGzipReader`:
+
+```ruby
+> file = File.open("test/fixtures/test.json.gz")
+
+> MultipleFilesGzipReader.new(file).each_line { |line| puts line }
+# foo
+# bar
+# => nil
+
+> puts `gunzip -c test/fixtures/test.json.gz`
+# foo
+# bar
+# => nil
+```
 
 ## Development
 
@@ -32,7 +56,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Running tests
 
-  ruby -Itest test/multiple_files_gzip_reader_test.rb
+    $ ruby -Ilib:test test/multiple_files_gzip_reader_test.rb
 
 ## Contributing
 

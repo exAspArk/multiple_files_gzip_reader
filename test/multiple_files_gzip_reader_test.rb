@@ -1,5 +1,6 @@
-require "multiple_files_gzip_reader"
 require "minitest/autorun"
+require "multiple_files_gzip_reader"
+require "pry"
 
 class MultipleFilesGzipReaderTest < Minitest::Test
   def test_each_line
@@ -8,6 +9,12 @@ class MultipleFilesGzipReaderTest < Minitest::Test
 
     reader.each_line { |line| lines << line }
 
-    assert lines, ["foo", "bar"]
+    assert_equal lines, ["foo\n", "bar\n"]
+  end
+
+  def test_readlines
+    reader = MultipleFilesGzipReader.new(File.open("test/fixtures/test.json.gz"))
+
+    assert_equal reader.readlines, ["foo\n", "bar\n"]
   end
 end

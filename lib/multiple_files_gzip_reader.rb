@@ -1,7 +1,7 @@
 require "multiple_files_gzip_reader/version"
 require "zlib"
 
-module MultipleFilesGzipReader
+class MultipleFilesGzipReader
   def initialize(io, options = {})
     @io = io
     @options = options
