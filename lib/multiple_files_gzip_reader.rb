@@ -2,6 +2,8 @@ require "multiple_files_gzip_reader/version"
 require "zlib"
 
 class MultipleFilesGzipReader
+  include Enumerable
+
   def initialize(io, options = {})
     @io = io
     @options = options
@@ -11,7 +13,7 @@ class MultipleFilesGzipReader
     io.pos = 0
   end
 
-  def each_line(*args, &block)
+  def each(*args, &block)
     loop do
       gzip_reader = Zlib::GzipReader.new(io, options)
 
@@ -24,6 +26,8 @@ class MultipleFilesGzipReader
       break if io.pos == io.size
     end
   end
+
+  alias_method :each_line, :each
 
   def readlines(*args)
     result = []
