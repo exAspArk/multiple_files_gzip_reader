@@ -1,7 +1,7 @@
-require "multiple_files_gzip_reader/version"
 require "zlib"
+require "multiple_files_gzip_reader/version"
 
-class MultipleFilesGzipReader
+class MultipleFilesGzipReader < Zlib::GzipReader
   include Enumerable
 
   def initialize(io, options = {})
