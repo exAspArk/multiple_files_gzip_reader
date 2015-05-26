@@ -23,4 +23,10 @@ class MultipleFilesGzipReaderTest < Minitest::Test
 
     assert_equal reader.count, 2
   end
+
+  def test_read
+    reader = MultipleFilesGzipReader.new(File.open("test/fixtures/test.json.gz"))
+
+    assert_equal reader.read, "foo\nbar\n"
+  end
 end

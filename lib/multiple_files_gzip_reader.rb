@@ -33,6 +33,10 @@ class MultipleFilesGzipReader
     map(&:to_s)
   end
 
+  def read
+    readlines.join
+  end
+
 private
 
   def io
